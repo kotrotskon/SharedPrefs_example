@@ -11,13 +11,16 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    EditText edTxt_email;
+    EditText edTxt_password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText edTxt_email = findViewById(R.id.edTxt_email);
-        EditText edTxt_password = findViewById(R.id.edTxt_password);
+        edTxt_email = findViewById(R.id.edTxt_email);
+        edTxt_password = findViewById(R.id.edTxt_password);
         Button btn = findViewById(R.id.btn_login);
         TextView textView = findViewById(R.id.textView);
 
@@ -28,12 +31,18 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences preferences = getSharedPreferences("PREFS", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("email", edTxt_email.getText().toString());
-                editor.putString("password", edTxt_password.getText().toString());
-                editor.commit();
+
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        SharedPreferences preferences = getSharedPreferences("PREFS", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("email", edTxt_email.getText().toString());
+        editor.putString("password", edTxt_password.getText().toString());
+        editor.commit();
     }
 }
